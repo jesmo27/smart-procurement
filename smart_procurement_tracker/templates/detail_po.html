@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Detail PO</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📦 {{ po[1] }}</h1>
+
+<div class="glass">
+
+<h2 style="color:white;">
+Vendor: {{ po[2] }}
+</h2>
+
+</div>
+
+<div class="glass">
+
+<h2 style="color:white;">
+Daftar Barang
+</h2>
+
+<br>
+
+<table>
+
+<tr>
+    <th>Barang</th>
+    <th>Qty</th>
+</tr>
+
+{% for item in barang %}
+
+<tr>
+    <td>{{ item[2] }}</td>
+    <td>{{ item[3] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+<div class="glass">
+
+<h2 style="color:white;">
+Tracking Status
+</h2>
+
+<br>
+
+<div class="progress-container">
+
+    <div
+    class="progress-bar"
+    style="width: {{ progress }}%;">
+    </div>
+
+</div>
+
+<p style="color:white;">
+Progress: {{ progress|int }}%
+</p>
+
+<br>
+
+<br>
+
+<form action="/update_status/{{ po[0] }}" method="post">
+
+<label>
+<input type="checkbox"
+name="invoice"
+{% if po[3] %}checked{% endif %}>
+Invoice
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox"
+name="pembayaran"
+{% if po[4] %}checked{% endif %}>
+Pembayaran
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox"
+name="packing"
+{% if po[5] %}checked{% endif %}>
+Packing
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox"
+name="pengiriman"
+{% if po[6] %}checked{% endif %}>
+Pengiriman
+</label>
+
+<br><br>
+
+<label>
+<input type="checkbox"
+name="diterima"
+{% if po[7] %}checked{% endif %}>
+Diterima
+</label>
+
+<br><br>
+
+<button class="btn-save">
+💾 Simpan Status
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>

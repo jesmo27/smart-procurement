@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Procurement Tracker</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+<h1>📦 Smart Product Tracker</h1>
+
+<div class="cards">
+
+    <div class="card">
+        <h3>Total PO</h3>
+        <p>{{ data|length }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Status Sistem</h3>
+        <p>🟢</p>
+    </div>
+
+    <div class="card">
+        <h3>Monitoring</h3>
+        <p>🚚</p>
+    </div>
+
+</div>
+
+<div class="glass">
+
+<h2 style="color:white;">➕ Tambah Purchase Order</h2>
+
+<br>
+
+<form action="/tambah" method="post">
+
+<input
+type="text"
+name="vendor"
+placeholder="Nama Vendor"
+required>
+
+<div id="barang-list">
+
+<div class="barang-item">
+
+<input
+type="text"
+name="barang[]"
+placeholder="Nama Barang">
+
+<input
+type="number"
+name="qty[]"
+placeholder="Qty">
+
+</div>
+
+</div>
+
+<br>
+
+<button
+type="button"
+class="btn-add"
+onclick="tambahBarang()">
+➕ Tambah Barang
+</button>
+
+<button
+type="submit"
+class="btn-save">
+💾 Simpan PO
+</button>
+
+</form>
+
+</div>
+
+<div class="glass">
+
+<h2 style="color:white;">📋 Daftar Purchase Order</h2>
+
+<br>
+
+<table>
+
+<tr>
+    <th>Nomor PO</th>
+<th>Vendor</th>
+<th>Aksi</th>
+</tr>
+
+{% for row in data %}
+
+<tr>
+    <td>{{ row[1] }}</td>
+    <td>{{ row[2] }}</td>
+
+   <td>
+
+<div class="action-buttons">
+
+    <a class="detail-btn"
+       href="/detail/{{ row[0] }}">
+       🔍 Detail
+    </a>
+
+    <a class="edit-btn"
+       href="/edit/{{ row[0] }}">
+       ✏️ Edit
+    </a>
+
+    <a class="delete-btn"
+       href="/hapus/{{ row[0] }}"
+       onclick="return confirm('Yakin ingin menghapus PO ini?')">
+       🗑 Hapus
+    </a>
+
+</div>
+
+</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+function tambahBarang(){
+
+let div = document.createElement("div");
+
+div.innerHTML = `
+<br>
+<input type="text"
+name="barang[]"
+placeholder="Nama Barang">
+
+<input type="number"
+name="qty[]"
+placeholder="Qty">
+`;
+
+document
+.getElementById("barang-list")
+.appendChild(div);
+
+}
+
+</script>
+
+</body>
+</html>
